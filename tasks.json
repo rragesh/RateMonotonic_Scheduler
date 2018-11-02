@@ -1,18 +1,14 @@
 {
-    "2": {
-        "WCET": 0,
-        "Period": 2
-    },
     "0": {
-        "WCET": 2,
-        "Period": 56
+        "Period": 20,
+        "WCET": 3
     },
     "1": {
-        "WCET": 1,
-        "Period": 65
+        "Period": 5,
+        "WCET": 2
     },
-    "IDLE": {
-        "WCET": 3641,
-        "Period": 3640
+    "2": {
+        "Period": 10,
+        "WCET": 2
     }
 }
