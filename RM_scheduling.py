@@ -5,33 +5,35 @@
 
 import json
 import copy
+import plotly.plotly as py
+import plotly.figure_factory as ff
 from sys import *
 from math import gcd
 from collections import OrderedDict
 
 tasks = dict()
 RealTime_task = dict() 
+d = dict()
+dList = []
 T = []
 C = []
 U = []
 
 
 def Read_data():
-
 	# Reading number of tasks to be scheduled
 	global n
 	global hp
 	global tasks
 
-	n = int(input("\n \t\tEnter number of Tasks:"))
-
+	n = int(input("\n\t\tEnter number of Tasks:"))
 	#  Storing data in a dictionary
 	for i in range(n):
 		tasks[i] = {}
-		print("\n\n\n Enter Period of task T",i,":")
+		print("\nEnter Period of task T",i,":")
 		p = input()
 		tasks[i]["Period"] = int(p)
-		print("Enter the WCET of task C",i,":") 
+		print("\nEnter the WCET of task C",i,":") 
 		w = input() 
 		tasks[i]["WCET"] = int(w)
 
@@ -100,21 +102,35 @@ def Simulation(hp):
 
 		# Determine the priority of the given tasks
 		priority = estimatePriority(RealTime_task)
+		global dList
 
 		if (priority != -1):
-			print("\nt{}-->t{} :TASK{}".format(t,t+1,priority))
 			# Update WCET after each clock cycle 
 			RealTime_task[priority]["WCET"] -= 1
-
+			print("\nt{}-->t{} :TASK{}".format(t,t+1,priority))
+			d = dict(Task=priority, Start=t, Finish=t+1)      	
+			dList.append(d.copy())  							#dList is a list of dictionary d
+																#just used for plotting the output in a gantt chart
 		else:
 			print("\nt{}-->t{} :IDLE".format(t,t+1))			
+			d = dict(Task="IDLE", Start=t, Finish=t+1)
+			dList.append(d.copy())
 
 		# Update Period after each clock cycle
 		for i in RealTime_task.keys():
 			RealTime_task[i]["Period"] -= 1
 			if (RealTime_task[i]["Period"] == 0):
+	
 				RealTime_task[i] = copy.deepcopy(tasks[i])
+	
+	# To plot the dList as a Gantt chart 
+	drawGantt()
 
+
+
+def drawGantt():
+	fig = ff.create_gantt(dList)
+	py.iplot(fig, filename='Rate Monotonic Scheduler', world_readable=True)
 			
 if __name__ == '__main__':
 	
