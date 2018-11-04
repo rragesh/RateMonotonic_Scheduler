@@ -9,6 +9,7 @@ from sys import *
 from math import gcd
 from collections import OrderedDict
 import matplotlib.pyplot as plt
+import numpy as np
 
 tasks = dict()
 RealTime_task = dict()
@@ -135,4 +136,5 @@ if __name__ == '__main__':
 	fig = plt.figure()
 	ax = fig.add_subplot(111)
 	ax = plt.hlines(x_axis, from_y, to_y)
+	plt.xticks(np.arange(min(from_y), max(to_y)+1, 1.0))
 	plt.show()
