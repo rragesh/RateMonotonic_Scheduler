@@ -10,13 +10,13 @@ A preemptive fixed priority driven Rate Monotonic scheduler has been implemented
 
 * **Display of metrics**: The release time, start time, finish time, number of releases, average response time and average waiting time has been computed and the results are displayed in the console as well as stored in a JSON file for the user to analyze the resulting metrics of the rate monotonic scheduler at a later time.
 
-##Usage
+## Usage
 ```
 git clone https://github.com/EnigmaRagesh/RateMonotonic_Scheduler.git
 cd RateMonotonic_Scheduler
 python3 RM_scheduling . py
 ```
-##sample input
+## sample input
 
 |        | Period  | WCET |
 |:------:|:-------:|:----:|
