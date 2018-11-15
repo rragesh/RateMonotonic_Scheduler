@@ -11,9 +11,11 @@ from collections import OrderedDict
 import matplotlib.pyplot as plt
 import numpy as np
 import statistics as st
+from collections import defaultdict
 
 tasks = dict()
 RealTime_task = dict()
+metrics = defaultdict(dict)
 d = dict()
 dList = []
 T = []
@@ -191,7 +193,6 @@ def drawGantt():
 	plt.show()
 
 
-
 def showMetrics():
 	"""
 	Displays the resultant metrics after scheduling such as
@@ -228,15 +229,25 @@ def showMetrics():
 
 	# Printing the resultant metrics
 	for i in tasks.keys():
+		metrics[i]["Releases"] = N[i]
+		metrics[i]["Period"] = tasks[i]["Period"]
+		metrics[i]["WCET"] = tasks[i]["WCET"]
+		metrics[i]["AvgRespTime"] = avg_respTime[i]
+		metrics[i]["AvgWaitTime"] = avg_waitTime[i]
+		
 		print("\n Number of releases of task %d ="%i,int(N[i]))
 		print("\n Release time of task%d = "%i,releaseTime[i])
 		print("\n start time of task %d = "%i,startTime[i])
-		print("\n finsh time of task %d = "%i,finishTime[i])
+		print("\n finish time of task %d = "%i,finishTime[i])
 		print("\n Average Response time of task %d = "%i,avg_respTime[i])
 		print("\n Average Waiting time of task %d = "%i,avg_waitTime[i])
 		print("\n")
 
+	# Storing results into a JSON file
+	with open('Metrics.json','w') as f:
+		json.dump(metrics,f,indent = 4)
 	print("\n\n\t\tScheduling of %d tasks completed succesfully...."%n)
+
 
 def filter_out(start_array,finish_array,release_time):
 	"""A filtering function created to create the required data struture from the simulation results"""
