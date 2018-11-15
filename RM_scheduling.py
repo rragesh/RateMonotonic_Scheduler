@@ -190,6 +190,7 @@ def showMetrics():
 	average response time, the average waiting time and the 
 	time of first deadline miss
 	"""
+	# No need to find the start and finish time of idle task instead the total duration of idle task is required.
 	N = []
 	startTime = []
 	releaseTime = []
@@ -204,7 +205,7 @@ def showMetrics():
 		temp = []
 		for j in range(int(N[i])):
 			temp.append(j*int(tasks[i]["Period"])) 
-		temp.append(hp)
+		# temp.append(hp)
 		releaseTime.append(temp)
 		print("\n Release time of task%d = "%i,releaseTime[i])
 
@@ -277,8 +278,9 @@ if __name__ == '__main__':
 	if sched_res == True:
 		hp = Hyperperiod()
 		Simulation(hp)
-		drawGantt()
 		showMetrics()
+		drawGantt()
+		
 	else:
 		Read_data()
 		sched_res = Schedulablity()
