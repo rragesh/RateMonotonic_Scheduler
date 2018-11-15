@@ -118,8 +118,9 @@ def Simulation(hp):
 	The real time schedulng based on Rate Monotonic scheduling is simulated here.
 	"""
 	# Real time scheduling are carried out in RealTime_task
+	global RealTime_task
 	RealTime_task = copy.deepcopy(tasks)
-    # validation of schedulablity neessary condition
+	# validation of schedulablity neessary condition
 	for i in RealTime_task.keys():
 		RealTime_task[i]["DCT"] = RealTime_task[i]["WCET"]  
 		if (RealTime_task[i]["WCET"] > RealTime_task[i]["Period"]):				
@@ -147,7 +148,7 @@ def Simulation(hp):
 		else:    #processor is idle
 			print("\nt{}-->t{} :IDLE".format(t,t+1))
 			# For the calculation of the metrics
-			d = dict(Task="IDLE", Start=t, Finish=t+1)
+			d = dict(Task="-1", Start=t, Finish=t+1)
 			dList.append(d.copy())
 			# For plotting the results
 			y_axis.append("IDLE")
@@ -160,6 +161,9 @@ def Simulation(hp):
 			RealTime_task[i]["Period"] -= 1
 			if (RealTime_task[i]["Period"] == 0):
 				RealTime_task[i] = copy.deepcopy(tasks[i])
+		
+		with open('RM_sched.json','w') as outfile2:
+			json.dump(dList,outfile2,indent = 4)
 
 
 def drawGantt():
@@ -178,13 +182,92 @@ def drawGantt():
 	plt.xticks(np.arange(min(from_x), max(to_x)+1, 1.0))
 	plt.show()
 
+
+
 def showMetrics():
-    """
-    Displays the resultant metrics after scheduling such as
-    average response time, the average waiting time and the 
-    time of first deadline miss
-    """
-    print("Metrics not calculated for now")
+	"""
+	Displays the resultant metrics after scheduling such as
+	average response time, the average waiting time and the 
+	time of first deadline miss
+	"""
+	N = []
+	startTime = []
+	releaseTime = []
+	finishTime = []
+	# Calculation of number of releases
+	for i in tasks.keys():
+		N.append(int(hp)/int(tasks[i]["Period"]))
+		print ("\n Number of releases of task %d ="%i,N[i])
+
+	# Calculation of relaese time of each task
+	for i in tasks.keys():
+		temp = []
+		for j in range(int(N[i])):
+			temp.append(j*int(tasks[i]["Period"])) 
+		temp.append(hp)
+		releaseTime.append(temp)
+		print("\n Release time of task%d = "%i,releaseTime[i])
+
+	# Calculation of start time of each task
+	TempstartTime = []
+	for i in tasks.keys():
+		temp = []
+		for j in range(len(dList)):
+			if dList[j]["Task"] == i:
+				temp.append(dList[j]["Start"])
+		TempstartTime.append(temp)
+
+	# Calculation of finish time of each task
+	TempfinishTime = []
+	for i in tasks.keys():
+		temp = []
+		for j in range(len(dList)):
+			if dList[j]["Task"] == i:
+				temp.append(dList[j]["Finish"])
+		TempfinishTime.append(temp)		
+
+	# oombiya part
+	# T = []
+	# for i in tasks.keys():
+
+	# 	temp = []
+	# 	for j in range(len(releaseTime[i])):
+
+	# 		t = []
+	# 		for k in range(len(TempstartTime[i])):
+	# 			if (TempstartTime[i][k] <= releaseTime[i][j]):
+	# 				t.append(TempstartTime[i][k])
+	# 		temp.append(t)
+	# 	print("temp",temp)
+
+		# for ii in range(len(temp[i])-1):
+		# 	diff =[]
+		# 	res =[]
+		# 	flag = []
+		# 	if temp[i][ii] == 0:
+		# 		startTime.append(0)
+
+		# 	elif not temp[i][ii]  and N[i] == 1:
+		# 		res = min(temp[i][ii+1])
+
+			# elif N[i] > 1:
+			# 	diff = dif(temp[i][ii+1],temp[i][ii])
+			# 	res = min(diff)
+			# startTime.append(res)	
+			# print(temp[i][ii+1],temp[i][ii])		
+		# print(releaseTime[i][j],t)
+
+				
+		# startTime.append(temp)
+		# print("\n start time of task %d = "%i,startTime[i])
+
+
+	for i in tasks.keys():
+		print("\n start time of task %d = "%i,TempstartTime[i])
+		print("\n finsh time of task %d = "%i,TempfinishTime[i])
+
+	
+
 
 if __name__ == '__main__':
 
@@ -195,6 +278,7 @@ if __name__ == '__main__':
 		hp = Hyperperiod()
 		Simulation(hp)
 		drawGantt()
+		showMetrics()
 	else:
 		Read_data()
 		sched_res = Schedulablity()

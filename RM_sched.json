@@ -1,0 +1,102 @@
+[
+    {
+        "Task": 1,
+        "Finish": 1,
+        "Start": 0
+    },
+    {
+        "Task": 1,
+        "Finish": 2,
+        "Start": 1
+    },
+    {
+        "Task": 2,
+        "Finish": 3,
+        "Start": 2
+    },
+    {
+        "Task": 2,
+        "Finish": 4,
+        "Start": 3
+    },
+    {
+        "Task": 0,
+        "Finish": 5,
+        "Start": 4
+    },
+    {
+        "Task": 1,
+        "Finish": 6,
+        "Start": 5
+    },
+    {
+        "Task": 1,
+        "Finish": 7,
+        "Start": 6
+    },
+    {
+        "Task": 0,
+        "Finish": 8,
+        "Start": 7
+    },
+    {
+        "Task": 0,
+        "Finish": 9,
+        "Start": 8
+    },
+    {
+        "Task": 0,
+        "Finish": 10,
+        "Start": 9
+    },
+    {
+        "Task": 1,
+        "Finish": 11,
+        "Start": 10
+    },
+    {
+        "Task": 1,
+        "Finish": 12,
+        "Start": 11
+    },
+    {
+        "Task": 2,
+        "Finish": 13,
+        "Start": 12
+    },
+    {
+        "Task": 2,
+        "Finish": 14,
+        "Start": 13
+    },
+    {
+        "Task": 0,
+        "Finish": 15,
+        "Start": 14
+    },
+    {
+        "Task": 1,
+        "Finish": 16,
+        "Start": 15
+    },
+    {
+        "Task": 1,
+        "Finish": 17,
+        "Start": 16
+    },
+    {
+        "Task": "-1",
+        "Finish": 18,
+        "Start": 17
+    },
+    {
+        "Task": "-1",
+        "Finish": 19,
+        "Start": 18
+    },
+    {
+        "Task": "-1",
+        "Finish": 20,
+        "Start": 19
+    }
+]
