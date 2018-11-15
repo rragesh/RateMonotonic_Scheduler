@@ -14,9 +14,9 @@ A preemptive fixed priority driven Rate Monotonic scheduler has been implemented
 ```
 git clone https://github.com/EnigmaRagesh/RateMonotonic_Scheduler.git
 cd RateMonotonic_Scheduler
-python3 RM_scheduling . py
+python3 RM_scheduling.py
 ```
-## sample input
+## Sample input
 
 |        | Period  | WCET |
 |:------:|:-------:|:----:|
