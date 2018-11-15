@@ -3,7 +3,6 @@
 # RM_scheduling.py: Rate Monotonic Scheduler
 # Author: Ragesh RAMACHANDRAN
 # ------------------------------------------
-
 import json
 import copy
 from sys import *
@@ -11,6 +10,7 @@ from math import gcd
 from collections import OrderedDict
 import matplotlib.pyplot as plt
 import numpy as np
+import statistics as st
 
 tasks = dict()
 RealTime_task = dict()
@@ -39,7 +39,7 @@ def Read_data():
 	dList = {}
 
 	n = int(input("\n \t\tEnter number of Tasks:"))
-	#  Storing data in a dictionary
+	# Storing data in a dictionary
 	for  i in range(n):
 		dList["TASK_%d"%i] = {"start":[],"finish":[]}
 
@@ -112,19 +112,20 @@ def estimatePriority(RealTime_task):
 	Estimates the priority of tasks at each real time period during scheduling
 	"""
 	tempPeriod = hp
-	P = -1    #idle task
+	P = -1    #Returns -1 for idle tasks
 	for i in RealTime_task.keys():
 		if (RealTime_task[i]["WCET"] != 0):
 			if (tempPeriod > RealTime_task[i]["Period"] or tempPeriod > tasks[i]["Period"]):
-				tempPeriod = tasks[i]["Period"]
+				tempPeriod = tasks[i]["Period"] #Checks the priority of each task based on period
 				P = i
 	return P
 
-# Bug1: Not preempting tasks
+
 def Simulation(hp):
 	"""
 	The real time schedulng based on Rate Monotonic scheduling is simulated here.
 	"""
+
 	# Real time scheduling are carried out in RealTime_task
 	global RealTime_task
 	RealTime_task = copy.deepcopy(tasks)
@@ -162,7 +163,6 @@ def Simulation(hp):
 			from_x.append(t)
 			to_x.append(t+1)
 
-
 		# Update Period after each clock cycle
 		for i in RealTime_task.keys():
 			RealTime_task[i]["Period"] -= 1
@@ -181,6 +181,7 @@ def drawGantt():
 	colors = ['red','green','blue','orange','yellow']
 	fig = plt.figure()
 	ax = fig.add_subplot(111)
+	# the data is plotted from_x to to_x along y_axis
 	ax = plt.hlines(y_axis, from_x, to_x, linewidth=20, color = colors[n-1])
 	plt.title('Rate Monotonic scheduling')
 	plt.grid(True)
@@ -197,58 +198,53 @@ def showMetrics():
 	average response time, the average waiting time and the
 	time of first deadline miss
 	"""
-	# No need to find the start and finish time of idle task instead the total duration of idle task is required.
 	N = []
 	startTime = []
 	releaseTime = []
 	finishTime = []
-	# Calculation of number of releases
+	avg_respTime = []
+	avg_waitTime = []
+
+	# Calculation of number of releases and release time
 	for i in tasks.keys():
 		release =int(hp)/int(tasks[i]["Period"])
 		N.append(release)
-		print ("\n Number of releases of task %d ="%i,release)
-
-	# Calculation of relaese time of each task
-	for i in tasks.keys():
 		temp = []
 		for j in range(int(N[i])):
 			temp.append(j*int(tasks[i]["Period"]))
 		# temp.append(hp)
-		releaseTime.append(temp)
-		print("\n Release time of task%d = "%i,releaseTime[i])
-	print(tasks)
+		releaseTime.append(temp)		
 
 	# Calculation of start time of each task
-	# TempstartTime = []
 	for j,i in enumerate(tasks.keys()):
 		start_array,end_array = filter_out(dList["TASK_%d"%i]["start"],dList["TASK_%d"%i]["finish"],N[j])
 		startTime.append(start_array)
 		finishTime.append(end_array)
-	#
-	# # Calculation of finish time of each task
-	# TempfinishTime = []
-	# for i in tasks.keys():
-	# 	temp = []
-	# 	for j in range(len(dList)):
-	# 		if dList[j]["Task"] == i:
-	# 			temp.append(dList[j]["Finish"])
-	# 	TempfinishTime.append(temp)
-	#
-	#
+
+	# Calculation of average waiting time and average response time of tasks
 	for i in tasks.keys():
+		avg_waitTime.append(st.mean([a_i - b_i for a_i, b_i in zip(startTime[i],releaseTime[i])]))
+		avg_respTime.append(st.mean([a_i - b_i for a_i, b_i in zip(finishTime[i],releaseTime[i])]))
+
+	# Printing the resultant metrics
+	for i in tasks.keys():
+		print("\n Number of releases of task %d ="%i,int(N[i]))
+		print("\n Release time of task%d = "%i,releaseTime[i])
 		print("\n start time of task %d = "%i,startTime[i])
 		print("\n finsh time of task %d = "%i,finishTime[i])
-		print("\n Response time of task %d = "%i,[a_i - b_i for a_i, b_i in zip(finishTime[i],releaseTime[i])])
-		print("\n Waiting time of task %d = "%i,[a_i - b_i for a_i, b_i in zip(startTime[i],releaseTime[i])])
+		print("\n Average Response time of task %d = "%i,avg_respTime[i])
+		print("\n Average Waiting time of task %d = "%i,avg_waitTime[i])
 		print("\n")
 
-def filter_out(start_array,finish_array,release_time):
+	print("\n\n\t\tScheduling of %d tasks completed succesfully...."%n)
 
-	print(start_array,finish_array)
+def filter_out(start_array,finish_array,release_time):
+	"""A filtering function created to create the required data struture from the simulation results"""
 	new_start = []
 	new_finish = []
 	beg_time = min(start_array)
 	diff = int(hp/release_time)
+	# Calculation of finish time and start time from simulation results
 	if(release_time>1):
 		new_start.append(beg_time)
 		prev = beg_time
@@ -269,20 +265,20 @@ def filter_out(start_array,finish_array,release_time):
 	return new_start,new_finish
 
 
-
-
-
 if __name__ == '__main__':
+
+	print("\n\n\t\t_RATE MONOTONIC SCHEDULER_\n")
 
 	Read_data()
 	sched_res = Schedulablity()
-
 	if sched_res == True:
+
 		hp = Hyperperiod()
 		Simulation(hp)
 		showMetrics()
 		drawGantt()
 
 	else:
+
 		Read_data()
 		sched_res = Schedulablity()

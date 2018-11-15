@@ -1,102 +1,64 @@
-[
-    {
-        "Finish": 1,
-        "Task": 1,
-        "Start": 0
+{
+    "TASK_1": {
+        "start": [
+            0,
+            1,
+            5,
+            6,
+            10,
+            11,
+            15,
+            16
+        ],
+        "finish": [
+            1,
+            2,
+            6,
+            7,
+            11,
+            12,
+            16,
+            17
+        ]
     },
-    {
-        "Finish": 2,
-        "Task": 1,
-        "Start": 1
+    "TASK_2": {
+        "start": [
+            2,
+            3,
+            12,
+            13
+        ],
+        "finish": [
+            3,
+            4,
+            13,
+            14
+        ]
     },
-    {
-        "Finish": 3,
-        "Task": 2,
-        "Start": 2
+    "TASK_0": {
+        "start": [
+            4,
+            7,
+            8,
+            9,
+            14,
+            17,
+            18,
+            19
+        ],
+        "finish": [
+            5,
+            8,
+            9,
+            10,
+            15,
+            18,
+            19,
+            20
+        ]
     },
-    {
-        "Finish": 4,
-        "Task": 2,
-        "Start": 3
-    },
-    {
-        "Finish": 5,
-        "Task": 0,
-        "Start": 4
-    },
-    {
-        "Finish": 6,
-        "Task": 1,
-        "Start": 5
-    },
-    {
-        "Finish": 7,
-        "Task": 1,
-        "Start": 6
-    },
-    {
-        "Finish": 8,
-        "Task": 0,
-        "Start": 7
-    },
-    {
-        "Finish": 9,
-        "Task": 0,
-        "Start": 8
-    },
-    {
-        "Finish": 10,
-        "Task": 0,
-        "Start": 9
-    },
-    {
-        "Finish": 11,
-        "Task": 1,
-        "Start": 10
-    },
-    {
-        "Finish": 12,
-        "Task": 1,
-        "Start": 11
-    },
-    {
-        "Finish": 13,
-        "Task": 2,
-        "Start": 12
-    },
-    {
-        "Finish": 14,
-        "Task": 2,
-        "Start": 13
-    },
-    {
-        "Finish": 15,
-        "Task": 0,
-        "Start": 14
-    },
-    {
-        "Finish": 16,
-        "Task": 1,
-        "Start": 15
-    },
-    {
-        "Finish": 17,
-        "Task": 1,
-        "Start": 16
-    },
-    {
-        "Finish": 18,
-        "Task": "-1",
-        "Start": 17
-    },
-    {
-        "Finish": 19,
-        "Task": "-1",
-        "Start": 18
-    },
-    {
-        "Finish": 20,
-        "Task": "-1",
-        "Start": 19
+    "TASK_IDLE": {
+        "start": [],
+        "finish": []
     }
-]
+}
