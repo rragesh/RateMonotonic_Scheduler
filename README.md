@@ -25,8 +25,7 @@ python3 RM_scheduling . py
 | Task 3 |    5    |   1  |
 | Task 4 |    5    |   1  |
 ## Gantt Chart output
-
-![output 1](Figure_1.png =20x12)
+<img src="Figure_1.png" width="200">
 
 ## sample input 2
 
