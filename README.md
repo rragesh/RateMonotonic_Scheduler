@@ -35,8 +35,7 @@ python3 RM_scheduling . py
 | Task 2 |    5    |   2  |
 | Task 3 |    10   |   2  |
 ## Gantt Chart output
-
-![output 2](Figure_2.png)
+<img src="Figure_2.png" width="800">
 
 ## sample input 3
 
@@ -47,5 +46,4 @@ python3 RM_scheduling . py
 | Task 3 |    15   |   3  |
 
 ## Gantt Chart output
-
-![output 3](Figure_3.png)
+<img src="Figure_3.png" width="800">
