@@ -16,7 +16,7 @@ git clone https://github.com/EnigmaRagesh/RateMonotonic_Scheduler.git
 cd RateMonotonic_Scheduler
 python3 RM_scheduling . py
 ```
-## sample input 1
+## Sample input 1
 
 |        | Period  | WCET |
 |:------:|:-------:|:----:|
@@ -24,6 +24,9 @@ python3 RM_scheduling . py
 | Task 2 |    5    |   1  |
 | Task 3 |    5    |   1  |
 | Task 4 |    5    |   1  |
+## Gantt Chart output
+
+![output 1](Figure_1.png)
 
 ## sample input 2
 
@@ -32,6 +35,9 @@ python3 RM_scheduling . py
 | Task 1 |    20   |   8  |
 | Task 2 |    5    |   2  |
 | Task 3 |    10   |   2  |
+## Gantt Chart output
+
+![output 2](Figure_2.png)
 
 ## sample input 3
 
@@ -43,6 +49,4 @@ python3 RM_scheduling . py
 
 ## Gantt Chart output
 
-[Figure 1](Figure_1.png)
-[Figure 2](Figure_2.png)
-[Figure 3](Figure_3.png)
+![output 3](Figure_3.png)
