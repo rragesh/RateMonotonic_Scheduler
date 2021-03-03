@@ -40,3 +40,9 @@ python3 RM_scheduling . py
 | Task 1 |    30   |  15  |
 | Task 2 |    5    |   1  |
 | Task 3 |    15   |   3  |
+
+## Gantt Chart output
+
+[Figure 1](Figure_1.png)
+[Figure 2](Figure_2.png)
+[Figure 3](Figure_3.png)
